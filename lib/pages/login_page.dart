@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_bloc/bloc/auth/auth_bloc.dart';
 import 'package:latihan_bloc/visibility_cubit.dart';
-import 'shopeepay.dart'; // Pastikan untuk mengimpor halaman ShopeePay
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -77,9 +77,7 @@ class LoginPage extends StatelessWidget {
                     ));
                   } else if (state is AuthStateLoaded) {
                     // Pindahin ke page shopee nya nih bro
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ShopeePay(),
-                    ));
+                    context.go("/shopee");
                   }
                 },
                 builder: (context, state) {

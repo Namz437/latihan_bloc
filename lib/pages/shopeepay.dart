@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:latihan_bloc/pages/pulsa.dart';
+import 'package:go_router/go_router.dart';
 
 class ShopeePay extends StatefulWidget {
   const ShopeePay({super.key});
@@ -498,14 +498,9 @@ class _MenuGrid extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             if (item["label"] == "Pulsa") {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const Pulsa(), 
-                ),
-              );
+              context.go("/pulsa");
             }
           },
-          
           child: Column(
             children: [
               Image.network(item["image"]!, width: 36.0, height: 36.0),

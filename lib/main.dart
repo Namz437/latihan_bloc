@@ -70,14 +70,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latihan_bloc/bloc/auth/auth_bloc.dart';
 import 'package:latihan_bloc/bloc/bilangan_primer/bilangan_primer_cubit.dart';
 import 'package:latihan_bloc/bloc/ganjil_genap/ganjil_genap_cubit.dart';
-import 'package:latihan_bloc/pages/login_page.dart';
+import 'package:latihan_bloc/pages/login_page.dart'; // Pastikan ini ada
+import 'package:latihan_bloc/pages/pulsa.dart'; // Pastikan ini ada
+import 'package:latihan_bloc/pages/shopeepay.dart'; // Pastikan ini ada
 import 'package:latihan_bloc/visibility_cubit.dart';
 
-import 'counter_cubit.dart';
-import 'counter_page.dart';
+import 'counter_cubit.dart'; // Pastikan ini ada
 
 void main() => runApp(const CounterApp());
 
@@ -86,30 +88,56 @@ class CounterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => CounterCubit(),
-          ),
-          BlocProvider<VisibilityCubit>(
-            create: (context) => VisibilityCubit(),
-          ),
-          BlocProvider<GanjilGenapCubit>(
-            create: (context) => GanjilGenapCubit(),
-          ),
-          BlocProvider(
-            create: (context) => BilanganPrimerCubit(),
-          ),
-          BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(),
-          ),
-        ],
-        child: LoginPage(),
+    final GoRouter router = GoRouter(
+      initialLocation: "/login",
+      routerNeglect: true,
+      routes: [
+        GoRoute(
+          path: "/login",
+          name: "login",
+          builder: (context, state) {
+            return LoginPage();
+          },
+        ),
+        GoRoute(
+          path: "/pulsa",
+          name: "pulsa",
+          builder: (context, state) {
+            return const Pulsa();
+          },
+        ),
+        GoRoute(
+          path: "/shopee",
+          name: "shopee",
+          builder: (context, state) {
+            return const ShopeePay();
+          },
+        ),
+      ],
+    );
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CounterCubit(),
+        ),
+        BlocProvider<VisibilityCubit>(
+          create: (context) => VisibilityCubit(),
+        ),
+        BlocProvider<GanjilGenapCubit>(
+          create: (context) => GanjilGenapCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BilanganPrimerCubit(),
+        ),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        ),
+      ],
+      child: MaterialApp.router(
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
 }
-
-// Visibility
